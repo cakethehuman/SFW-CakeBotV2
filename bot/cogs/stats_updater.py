@@ -31,7 +31,7 @@ class StatsUpdater(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.task = create_task(self.update_interval(5 * 60))
+        # self.task = create_task(self.update_interval(5 * 60))
 
 
     async def update_stats(self):
@@ -59,8 +59,8 @@ class StatsUpdater(commands.Cog):
             try:
                 # Check for channel name
                 # Skip if playercount is the same (ratelimit thing)
-                (_, str_count) = channel.name.split()
-                (current_players, _a) = str_count.split('/') 
+                str_count = channel.name.split()[-1]
+                (current_players, _) = str_count.split('/') 
 
                 if int(current_players) == server["currentPlayers"]:
                     continue
