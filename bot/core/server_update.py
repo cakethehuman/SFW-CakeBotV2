@@ -1,13 +1,13 @@
 import logging
-import threading
 
+from asyncio.tasks import sleep, create_task
 from ..services.api_service import ServerListItem, ServerSummary, getServers
 
 logger = logging.getLogger(__name__)
 
 detailed_servers_cache: list[ServerSummary] = []
 servers_cache: list[ServerListItem] = []
-def update_server_cache():
+async def update_server_cache():
     global servers_cache
     logger.info("Updating Servers cache..")
     data = getServers()
@@ -17,6 +17,10 @@ def update_server_cache():
 
     logger.info("Updated Servers cache completed")
     servers_cache = data
-    threading.Timer(25.0, update_server_cache)
 
-update_server_cache()
+async def update_interval(debounce: int):
+    while True:
+        await sleep(debounce)
+        await update_server_cache()
+        
+interval_task = create_task(update_interval(25))
