@@ -31,13 +31,14 @@ class StatsUpdater(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.task = create_task(self.update_interval(25))
+        self.task = create_task(self.update_interval(5 * 60))
 
 
     async def update_stats(self):
-        logger.info("Updating Statistics Channels..")
         if settings.DEV_GUILD_ID is None:
             return
+        
+        logger.info("Updating Statistics Channels..")
 
         for channel_partial in STATS_CHANNELS:
             server = next((s for s in servers_cache if s["serverId"] == channel_partial["server_id"]), None)
