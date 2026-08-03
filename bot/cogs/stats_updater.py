@@ -60,7 +60,7 @@ class StatsUpdater(commands.Cog):
                 # Check for channel name
                 # Skip if playercount is the same (ratelimit thing)
                 str_count = channel.name.split()[-1]
-                (current_players, _) = str_count.split('/') 
+                current_players = str_count.split('/')[0]
 
                 if int(current_players) == server["currentPlayers"]:
                     continue
