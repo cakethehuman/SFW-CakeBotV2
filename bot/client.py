@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 class CakeBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
-        super().__init__(command_prefix="!unused", intents=intents)
+        intents.message_content = True
+        super().__init__(command_prefix="$", intents=intents)
         
     async def setup_hook(self):
         cogs_path = Path(__file__).parent / 'cogs'
@@ -34,4 +35,4 @@ class CakeBot(commands.Bot):
             logger.info("Synced commands globally")
 
     async def on_ready(self):
-        logger.info(f"Logged in as {self.user} ({self.user.id})")            
+        logger.info(f"Logged in as {self.user}")
