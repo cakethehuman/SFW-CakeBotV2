@@ -20,7 +20,7 @@ async def update_server_cache():
 
 async def update_interval(debounce: int):
     while True:
-        await sleep(debounce)
         await update_server_cache()
+        await sleep(debounce)
         
 interval_task = create_task(update_interval(25))
