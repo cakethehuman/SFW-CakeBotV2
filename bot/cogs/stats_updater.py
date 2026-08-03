@@ -55,8 +55,11 @@ class StatsUpdater(commands.Cog):
                 logger.warning(f"Missing channel ({channel_partial["channel_id"]})")
                 continue
                 
-            await channel.edit(name=f"{channel_partial["label_name"]} {server['currentPlayers']}/{server['maxPlayers']}")
-        logger.info("Updated Statistics Channels")
+            try:
+                await channel.edit(name=f"{channel_partial["label_name"]} {server['currentPlayers']}/{server['maxPlayers']}")
+            except Exception as err:
+                logger.exception("Exception raised on channel.edit", exc_info=err)
+        # logger.info("Updated Statistics Channels")
 
     async def update_interval(self, debounce: int):
         while True:
