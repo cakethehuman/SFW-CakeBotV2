@@ -57,6 +57,13 @@ class StatsUpdater(commands.Cog):
                 continue
                 
             try:
+                # Check for channel name
+                # Skip if playercount is the same (ratelimit thing)
+                (_, str_count) = channel.name.split()
+                (current_players, _a) = str_count.split('/') 
+
+                if int(current_players) == server["currentPlayers"]:
+                    continue
                 await channel.edit(name=f"{channel_partial["label_name"]} {server['currentPlayers']}/{server['maxPlayers']}")
             except Exception as err:
                 logger.exception("Exception raised on channel.edit", exc_info=err)
