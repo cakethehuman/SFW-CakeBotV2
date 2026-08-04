@@ -33,7 +33,7 @@ class General(commands.Cog):
         for server in global_cache["servers"]:
             embed.description = str(embed.description) + f"\n"
         await interaction.response.send_message(ephemeral=True, embed=embed)
-        # await interaction.response.send_message(ephemeral=True, content="https://static2.klipy.com/ii/a8ada81afc59159ea5c8927feffa2e31/fe/3e/km0AUNJRv5AxqtIkWos.gif")
+        
     
 async def setup(bot: commands.Bot):
     await bot.add_cog(General(bot))

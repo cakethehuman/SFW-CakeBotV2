@@ -28,7 +28,6 @@ class ColoredFormatter(logging.Formatter):
 def setup_logging():
     handler = logging.StreamHandler()
     handler.setFormatter(ColoredFormatter())
-    # logging.basicConfig(level=logging.DEBUG, handlers=[handler])
     logging.basicConfig(level=logging.INFO, handlers=[handler])
     logging.basicConfig(level=logging.WARNING, handlers=[handler])
     logging.basicConfig(level=logging.ERROR, handlers=[handler])
