@@ -4,7 +4,7 @@ from asyncio.tasks import create_task, sleep
 from discord.ext import commands
 
 from bot.core.config import settings
-from bot.core.server_update import servers_cache
+from bot.core.server_update import global_cache
 
 STATS_CATEGORY_ID = 1533123743814123612
 STATS_CHANNELS: list[dict[str, int | str]] = [
@@ -31,7 +31,7 @@ class StatsUpdater(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.task = create_task(self.update_interval(5 * 60))
+        self.task = create_task(self.update_interval(1 * 60))
 
 
     async def update_stats(self):
@@ -41,7 +41,7 @@ class StatsUpdater(commands.Cog):
         logger.info("Updating Statistics Channels..")
 
         for channel_partial in STATS_CHANNELS:
-            server = next((s for s in servers_cache if s["serverId"] == channel_partial["server_id"]), None)
+            server = next((s for s in global_cache["servers"] if s["serverId"] == channel_partial["server_id"]), None)
             if server is None:
                 logger.warning(f"Missing server cache {channel_partial["label_name"]} ({channel_partial["server_id"]})")
                 continue
@@ -67,12 +67,13 @@ class StatsUpdater(commands.Cog):
                 await channel.edit(name=f"{channel_partial["label_name"]} {server['currentPlayers']}/{server['maxPlayers']}")
             except Exception as err:
                 logger.exception("Exception raised on channel.edit", exc_info=err)
-        # logger.info("Updated Statistics Channels")
+        logger.info("Updating Statistics Channels complete")
 
     async def update_interval(self, debounce: int):
         while True:
-            await sleep(debounce)
+            await sleep(1)
             await self.update_stats()
+            await sleep(debounce)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(StatsUpdater(bot))
