@@ -6,9 +6,11 @@ from ..services.api_service import ServerListItem, ServerSummary, getServers
 logger = logging.getLogger(__name__)
 
 detailed_servers_cache: list[ServerSummary] = []
-servers_cache: list[ServerListItem] = []
+global_cache = {
+    "servers": []
+}
 async def update_server_cache():
-    global servers_cache
+    
     logger.info("Updating Servers cache..")
     data = getServers()
     if data is None:
@@ -16,7 +18,7 @@ async def update_server_cache():
         return
 
     logger.info("Updated Servers cache completed")
-    servers_cache = data
+    global_cache["servers"] = data
 
 async def update_interval(debounce: int):
     while True:
