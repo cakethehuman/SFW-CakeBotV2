@@ -46,7 +46,7 @@ class StatsUpdater(commands.Cog):
                 logger.warning(f"Missing server cache {channel_partial["label_name"]} ({channel_partial["server_id"]})")
                 continue
 
-            guild = self.bot.get_guild(settings.DEV_GUILD_ID)
+            guild = self.bot.get_guild(settings.DEV_GUILD_ID) or await self.bot.fetch_guild(settings.DEV_GUILD_ID)
             if guild is None:
                 logger.warning("Invalid guild")
                 continue
