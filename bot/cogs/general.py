@@ -5,7 +5,7 @@ from discord import app_commands
 from discord.ext import commands
 from strip_tags import strip_tags
 
-from ..core.server_update import servers_cache
+from ..core.server_update import global_cache
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class General(commands.Cog):
             url="https://static2.klipy.com/ii/a8ada81afc59159ea5c8927feffa2e31/fe/3e/km0AUNJRv5AxqtIkWos.gif",
             type="gifv"
         )
-        for server in servers_cache:
+        for server in global_cache["servers"]:
             embed.description = str(embed.description) + f"\n"
         await interaction.response.send_message(ephemeral=True, embed=embed)
         # await interaction.response.send_message(ephemeral=True, content="https://static2.klipy.com/ii/a8ada81afc59159ea5c8927feffa2e31/fe/3e/km0AUNJRv5AxqtIkWos.gif")
