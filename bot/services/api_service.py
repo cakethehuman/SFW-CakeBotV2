@@ -61,7 +61,6 @@ def getServers() -> list[ServerListItem] | None:
         logger.info("Requesting data to API Service..")
         response = requests.get(url, params, timeout=5)
         response.raise_for_status()
-
         return response.json()
     except Exception as error:
         logger.exception("Exception was raised when trying to request server data", exc_info=error)

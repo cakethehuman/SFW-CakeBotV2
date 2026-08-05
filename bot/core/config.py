@@ -1,9 +1,10 @@
+from typing import Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    TOKEN: str | None = None
-    DEV_GUILD_ID: int | None = None
+    TOKEN: Optional[str] = None
+    DEV_GUILD_ID: Optional[int] = None
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
