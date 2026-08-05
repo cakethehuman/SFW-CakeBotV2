@@ -18,7 +18,8 @@ class General(commands.Cog):
     async def im_back_command(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title = "CakeBot v2 info",
-            description="CakeBot update: every 3 minutes\nTo check the player list see the channels in statistics category"
+            description="CakeBot player list updates every 3 minutes.\nTo check the player list, see the channels under the statistics category.\nUser /help to see the bot comamnds",
+            color=discord.Color.red()
         )
         await interaction.response.send_message(embed=embed)
     
@@ -34,7 +35,7 @@ class General(commands.Cog):
             embed.description = str(embed.description) + f"\n"
         await interaction.response.send_message(ephemeral=True, embed=embed)
         
-    @app_commands.command(name="backagain", description="Baby im back")
+    @app_commands.command(name="Interview", description="Use this slash commands to get the interviewer role")
     async def im_back_command(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title = "Yoo cake is back",
