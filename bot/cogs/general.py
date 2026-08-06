@@ -14,7 +14,7 @@ class General(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
     
-    @app_commands.command(name="Info", description="Info about the bot")
+    @app_commands.command(name="info", description="Info about the bot")
     async def im_back_command(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title = "CakeBot v2 info",
@@ -35,7 +35,7 @@ class General(commands.Cog):
             embed.description = str(embed.description) + f"\n"
         await interaction.response.send_message(ephemeral=True, embed=embed)
         
-    @app_commands.command(name="Interview", description="Use this slash commands to get the interviewer role")
+    @app_commands.command(name="interview", description="Use this slash commands to get the interviewer role")
     async def im_back_command(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title = "Yoo cake is back",
